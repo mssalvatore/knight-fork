@@ -1,3 +1,4 @@
+RelativeCoordinates = Chessboard.RelativeCoordinates
 var clicked_squares = [];
 var correct_squares = [];
 
