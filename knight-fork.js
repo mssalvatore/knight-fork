@@ -1,20 +1,11 @@
 var clicked_squares = [];
 var correct_squares = [];
-function toggleSelection(element) {
+
+function toggleSelection(element, color) {
     if (element.style.boxShadow === "") {
         let blur = Math.floor(parseInt(element.style.width, 10) / 5);
         let spread = Math.floor(blur/ 2);
-        element.style.boxShadow = `0 0 ${blur}px ${spread}px #e6c912 inset`;
-    } else {
-        element.style.opacity = 1.0;
-        element.style.boxShadow = "";
-    }
-}
-function toggleRed(element) {
-    if (element.style.boxShadow === "") {
-        let blur = Math.floor(parseInt(element.style.width, 10) / 5);
-        let spread = Math.floor(blur/ 2);
-        element.style.boxShadow = `0 0 ${blur}px ${spread}px #FF0000 inset`;
+        element.style.boxShadow = `0 0 ${blur}px ${spread}px `+ color + " inset";
     } else {
         element.style.opacity = 1.0;
         element.style.boxShadow = "";
@@ -29,10 +20,11 @@ function onMouseclickSquare (evt, square) {
     else {
         clicked_squares.push(square_name);
     }
-    toggleSelection(square);
+    toggleSelection(square, "#e6c912");
 }
+
 function onContextmenuSquare (evt, square) {
-    toggleRed(square)
+    toggleSelection(square, "#FF0000")
 }
 
 function verify() {
