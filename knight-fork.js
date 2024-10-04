@@ -29,7 +29,6 @@ function onContextmenuSquare (evt, square) {
 
 function verify() {
     if (clicked_squares.sort().join(",") == correct_squares.sort().join(",")) {
-        alert("Correct!");
         location.reload();
     } else {
         alert("Incorrect!");
@@ -129,7 +128,7 @@ function get_enemy_coordinates() {
 }
 
 $(document).on("keypress", function(evt) {
-    if (evt.which === 13) {
+    if (evt.which === 13 || evt.which === 99) {
         verify();
     }
 });
