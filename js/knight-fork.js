@@ -103,6 +103,9 @@ function get_enemy_coordinates() {
 }
 
 function display_new_puzzle() {
+    // This is a hack to clear the board and ensure that the pieces don't "slide" between puzzles.
+    board1.position({});
+
     correct_squares = [];
     const [file1, file_index_1, rank1, file2, rank2] = get_enemy_coordinates();
     const square_1_name = get_square_name(file1, rank1);
