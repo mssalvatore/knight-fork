@@ -1,6 +1,21 @@
 RelativeCoordinates = Chessboard.RelativeCoordinates
+
+const config = {
+    draggable: false,
+    position: {},
+    onContextmenuSquare: onContextmenuSquare,
+    onMouseclickSquare: onMouseclickSquare
+}
+const files = "abcdefgh";
+// Pawns are the least likely. Kings are the most likely (more or less).
+const target_pieces = ["P", "R", "R", "N", "N", "B", "B", "Q", "Q", "K", "K", "K", "K", "K"];
+const target_pieces_no_king = ["R", "N", "B", "Q"];
+const target_color = ["w", "b"];
+
 var clicked_squares = [];
 var correct_squares = [];
+
+const board1 = ChessBoard('board1', config);
 
 function toggleSelection(element, color) {
     if (element.style.boxShadow === "") {
@@ -12,15 +27,18 @@ function toggleSelection(element, color) {
         element.style.boxShadow = "";
     }
 }
+
 function onMouseclickSquare (evt, square) {
-    square_name = square.getAttribute("data-square")
+    let square_name = square.getAttribute("data-square")
     const index = clicked_squares.indexOf(square_name);
+
     if (index >= 0) {
         clicked_squares.splice(index, 1);
     }
     else {
         clicked_squares.push(square_name);
     }
+
     toggleSelection(square, "#e6c912");
 }
 
@@ -35,14 +53,6 @@ function verify() {
         alert("Incorrect!");
     }
 }
-
-//
-//
-
-// Pawns are the least likely. Kings are the most likely (more or less).
-const target_pieces = ["P", "R", "R", "N", "N", "B", "B", "Q", "Q", "K", "K", "K","K"];
-const target_pieces_no_king= ["R", "N", "B", "Q"];
-const target_color = ["w", "b"];
 
 function square_add(square, relative) {
     return String.fromCharCode(square.charCodeAt(0) + relative.x) + (parseInt(square[1], 10) + relative.y);
@@ -74,15 +84,6 @@ $(document).on("keypress", function(evt) {
         verify();
     }
 });
-
-var config = {
-    draggable: false,
-    position: {},
-    onContextmenuSquare: onContextmenuSquare,
-    onMouseclickSquare: onMouseclickSquare
-}
-var board1 = ChessBoard('board1', config);
-var files = "abcdefgh";
 
 const [file1, file_index_1, rank1, file2, rank2] = get_enemy_coordinates();
 const square_1_name = get_square_name(file1, rank1);
