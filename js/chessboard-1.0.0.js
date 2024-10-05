@@ -1426,6 +1426,10 @@
       widget.position({}, useAnimation)
     }
 
+    widget.board = function () {
+      return $container.find('.' + CSS.chessboard)[0]
+    }
+
     // remove the widget from the page
     widget.destroy = function () {
       // remove markup
