@@ -17,7 +17,7 @@ var clicked_squares = [];
 var clicked_square_elements = [];
 var correct_squares = [];
 
-const board1 = ChessBoard('board1', config);
+const board = ChessBoard('board', config);
 
 function toggleSelection(element, color) {
     if (element.style.boxShadow === "") {
@@ -104,7 +104,7 @@ function get_enemy_coordinates() {
 
 function display_new_puzzle() {
     // This is a hack to clear the board and ensure that the pieces don't "slide" between puzzles.
-    board1.position({});
+    board.position({});
 
     correct_squares = [];
     const [file1, file_index_1, rank1, file2, rank2] = get_enemy_coordinates();
@@ -122,7 +122,7 @@ function display_new_puzzle() {
         [square_2_name]: color + piece_2
     }
 
-    board1.position(position);
+    board.position(position);
 
     enemy_relationship = new RelativeCoordinates(file_index_2 - file_index_1, rank2 - rank1);
 
