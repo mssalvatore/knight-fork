@@ -35,66 +35,7 @@ function verify() {
         alert("Incorrect!");
     }
 }
-// Fork types targets (x, y)
-//
-// (±1, ±1)
-// (0, ±2) OR (±2, 0)
-// (±1, ±3) OR (±3, ±1)
-// (0, ±4) OR (±4, 0)
-// (±2, ±4) OR (±4, ±2)
-// (±3, ±3)
-//
-// Forks
-//
-//
-class RelativeCoordinates {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-    }
 
-    toString() {
-        return "(" + this.x + ", " + this.y + ")";
-    }
-}
-const fork_map = new Map();
-fork_map.set(new RelativeCoordinates(-1, -1).toString(), [new RelativeCoordinates(-2, 1), new RelativeCoordinates(1, -2)])
-fork_map.set(new RelativeCoordinates(-1, 1).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(1, 2)])
-fork_map.set(new RelativeCoordinates(1, -1).toString(), [new RelativeCoordinates(-1, -2), new RelativeCoordinates(2, 1)])
-fork_map.set(new RelativeCoordinates(1, 1).toString(), [new RelativeCoordinates(-1, 2), new RelativeCoordinates(2, -1)])
-
-fork_map.set(new RelativeCoordinates(-2, 0).toString(), [new RelativeCoordinates(-1, 2), new RelativeCoordinates(-1, -2)])
-fork_map.set(new RelativeCoordinates(0, -2).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(2, -1)])
-fork_map.set(new RelativeCoordinates(0, 2).toString(), [new RelativeCoordinates(-2, 1), new RelativeCoordinates(2, 1)])
-fork_map.set(new RelativeCoordinates(2, 0).toString(), [new RelativeCoordinates(1, -2), new RelativeCoordinates(1,2)])
-
-fork_map.set(new RelativeCoordinates(-3, -1).toString(), [new RelativeCoordinates(-2, 1), new RelativeCoordinates(-1, -2)])
-fork_map.set(new RelativeCoordinates(-3, 1).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(-1, 2)])
-fork_map.set(new RelativeCoordinates(-1, -3).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(1, -2)])
-fork_map.set(new RelativeCoordinates(-1, 3).toString(), [new RelativeCoordinates(-2, 1), new RelativeCoordinates(1, 2)])
-fork_map.set(new RelativeCoordinates(1, -3).toString(), [new RelativeCoordinates(-1, -2), new RelativeCoordinates(2, -1)])
-fork_map.set(new RelativeCoordinates(1, 3).toString(), [new RelativeCoordinates(-1, 2), new RelativeCoordinates(2, 1)])
-fork_map.set(new RelativeCoordinates(3, -1).toString(), [new RelativeCoordinates(1, -2), new RelativeCoordinates(2, 1)])
-fork_map.set(new RelativeCoordinates(3, 1).toString(), [new RelativeCoordinates(1, 2), new RelativeCoordinates(2, -1)])
-
-fork_map.set(new RelativeCoordinates(-4, 0).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(-2, 1)])
-fork_map.set(new RelativeCoordinates(0, -4).toString(), [new RelativeCoordinates(-1, -2), new RelativeCoordinates(1, -2)])
-fork_map.set(new RelativeCoordinates(0, 4).toString(), [new RelativeCoordinates(-1, 2), new RelativeCoordinates(1, 2)])
-fork_map.set(new RelativeCoordinates(4, 0).toString(), [new RelativeCoordinates(2, -1), new RelativeCoordinates(2, 1)])
-
-fork_map.set(new RelativeCoordinates(-4, -2).toString(), [new RelativeCoordinates(-2, -1)])
-fork_map.set(new RelativeCoordinates(-4, 2).toString(), [new RelativeCoordinates(-2, 1)])
-fork_map.set(new RelativeCoordinates(-2, -4).toString(), [new RelativeCoordinates(-1, -2)])
-fork_map.set(new RelativeCoordinates(-2, 4).toString(), [new RelativeCoordinates(-1, 2)])
-fork_map.set(new RelativeCoordinates(2, -4).toString(), [new RelativeCoordinates(1, -2)])
-fork_map.set(new RelativeCoordinates(2, 4).toString(), [new RelativeCoordinates(1, 2)])
-fork_map.set(new RelativeCoordinates(4, -2).toString(), [new RelativeCoordinates(2, -1)])
-fork_map.set(new RelativeCoordinates(4, 2).toString(), [new RelativeCoordinates(2, 1)])
-
-fork_map.set(new RelativeCoordinates(-3, -3).toString(), [new RelativeCoordinates(-2, -1), new RelativeCoordinates(-1, -2)])
-fork_map.set(new RelativeCoordinates(-3, 3).toString(), [new RelativeCoordinates(-2, 1), new RelativeCoordinates(-1, 2)])
-fork_map.set(new RelativeCoordinates(3, -3).toString(), [new RelativeCoordinates(1, -2), new RelativeCoordinates(2, -1)])
-fork_map.set(new RelativeCoordinates(3, 3).toString(), [new RelativeCoordinates(1, 2), new RelativeCoordinates(2, 1)])
 //
 //
 
@@ -162,7 +103,7 @@ board1.position(position);
 
 enemy_relationship = new RelativeCoordinates(file_index_2 - file_index_1, rank2 - rank1);
 
-const fork_positions = fork_map.get(enemy_relationship.toString()) || [];
+const fork_positions = Chessboard.KnightForkMap.get(enemy_relationship.toString()) || [];
 
 fork_positions.forEach((potential_position) => {
     potential_square = square_add(square_1_name, potential_position);
