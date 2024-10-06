@@ -1430,6 +1430,10 @@
       return $container.find('.' + CSS.chessboard)[0]
     }
 
+    widget.container = function () {
+        return $container[0]
+    }
+
     // remove the widget from the page
     widget.destroy = function () {
       // remove markup
