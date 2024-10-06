@@ -19,10 +19,22 @@ var correct_squares = [];
 
 const board = ChessBoard('board', config);
 
+const error_screen = document.createElement("div");
+error_screen.id = "error-screen";
+error_screen.style.display = "none";
+error_screen.style.width = board.board().getBoundingClientRect().width;
+error_screen.style.height = board.board().getBoundingClientRect().height;
+error_screen.style.top = board.board().getBoundingClientRect().top;
+error_screen.style.left = board.board().getBoundingClientRect().left;
+board.container().appendChild(error_screen);
+
 function toggleSelection(element, color) {
     if (element.style.boxShadow === "") {
-        let blur = Math.floor(parseInt(element.style.width, 10) / 5);
+        let width = element.getBoundingClientRect().width;
+
+        let blur = Math.floor(parseInt(width, 10) / 5);
         let spread = Math.floor(blur/ 2);
+
         element.style.boxShadow = `0 0 ${blur}px ${spread}px `+ color + " inset";
     } else {
         deselect(element);
@@ -58,13 +70,28 @@ function onContextmenuSquare (evt, square) {
     toggleSelection(square, "#FF0000")
 }
 
-function verify() {
+async function verify() {
     if (clicked_squares.toSorted().join(",") == correct_squares.sort().join(",")) {
         clearSelectedSquares();
         display_new_puzzle();
     } else {
-        alert("Incorrect!");
+        toggleError();
+        await new Promise(r => setTimeout(r, 100));
+        toggleError();
+        await new Promise(r => setTimeout(r, 100));
+        toggleError();
+        await new Promise(r => setTimeout(r, 100));
+        toggleError();
     }
+}
+
+function toggleError() {
+    if (error_screen.style.display == "none") {
+        error_screen.style.display = "inline-block";
+    } else {
+        error_screen.style.display = "none";
+    }
+    toggleSelection(error_screen, "#FF0000")
 }
 
 function clearSelectedSquares() {
@@ -137,9 +164,9 @@ function display_new_puzzle() {
     });
 }
 
-$(document).on("keypress", function(evt) {
+$(document).on("keypress", async function(evt) {
     if (evt.which === 13 || evt.which === 99) {
-        verify();
+        await verify();
     }
 });
 

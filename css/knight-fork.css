@@ -1,0 +1,6 @@
+#error-screen {
+    position: absolute;
+    display: none;
+    z-index: 10;
+
+}
